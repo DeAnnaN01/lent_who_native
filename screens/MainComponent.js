@@ -1,28 +1,31 @@
-
-import { useState } from 'react';
-import { RECORDS } from '../shared/records';
-import DirectoryScreen from './DirectoryScreen.js';
-
-import { View, Text } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import DirectoryScreen from './DirectoryScreen';
 import RecordInfoScreen from './RecordInfoScreen';
 
 
 
+const Stack = createNativeStackNavigator();
 
 const Main = () => {
-    const [records, setRecords] = useState(RECORDS);
-
-    const [selectedRecordId, setSelectedRecordId] = useState();
 
     return (
-        <View style={{ flex: 1 }}>
-            <Text>
-                <DirectoryScreen records={records} onPress={recordId => setSelectedRecordId(recordId)} />;
-                <RecordInfoScreen record={records.filter(record => record.id === selectedRecordId)[0]} />;
-            </Text>
-        </View >
-    )
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Directory">
+                <Stack.Screen
+                    name="Directory"
+                    component={DirectoryScreen}
+                    options={{ title: 'Records List' }}
+                />
+                <Stack.Screen
+                    name="RecordInfo"
+                    component={RecordInfoScreen}
+                    options={{ title: 'Record Info' }}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 };
-
 
 export default Main;

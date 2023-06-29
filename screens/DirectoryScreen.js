@@ -1,12 +1,16 @@
-
+import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Avatar, ListItem } from 'react-native-elements';
-
-const DirectoryScreen = (props) => {
-
-    const renderDirectoryItem = ({ item: record }) => {
+import { RECORDS } from '../shared/records';
+ const DirectoryScreen = () => {
+    const [records, setRecords] = useState(RECORDS);
+    const [selectedRecordId, setSelectedRecordId] = useState();
+     const recordsArray = records.map((record, i) => {
+        return { ...record, id: i + 1 };
+    });
+     const renderDirectoryItem = ({ item: record }) => {
         return (
-            <ListItem onPress={() => props.onPress(record.id)}>
+            <ListItem onPress={() => setSelectedRecordId(record.id)}>
                 <ListItem.Content>
                     <ListItem.Title>
                         Record #: {record.id}
@@ -21,18 +25,15 @@ const DirectoryScreen = (props) => {
                         Date: {record.date}
                     </ListItem.Subtitle>
                 </ListItem.Content>
-            </ListItem >
+            </ListItem>
         );
     };
-
-    return (
+     return (
         <FlatList
-            data={props.records}
+            data={recordsArray}
             renderItem={renderDirectoryItem}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(record) => record.id.toString()}
         />
     );
 };
-
-
-export default DirectoryScreen;
+ export default DirectoryScreen;

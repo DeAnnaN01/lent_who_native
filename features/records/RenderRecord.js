@@ -1,34 +1,34 @@
+import React from 'react';
 import { Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
+import RecordInfoScreen, { selectedRecordId } from '../../screens/RecordInfoScreen';
 
 
-const RenderRecord = ({ record }) => {
+
+const RenderRecord = () => {
+    const record = selectedRecordId;
     if (record) {
         return (
-            <Card containerStyle={{ padding: 0 }} >
-                <Card.Image source={record.image}>
-                    <View style={{ justifyContent: 'center', flex: 1 }} >
-                        <Text style={{ color: 'white', textAlign: 'center', fontSize: 20 }} >
+            <Card containerStyle={{ padding: 10 }}>
+                <Card.Title style={{ padding: 5 }}>
+                    <View style={{ justifyContent: 'center', flex: 1 }}>
+                        <Text style={{ color: 'white', textAlign: 'center', fontSize: 20, backgroundColor: 'purple' }}>
                             {record.id}
                         </Text>
                     </View>
-                </Card.Image>
-                <Text style={{ margin: 20 }} >
+                </Card.Title>
+                <Text style={{ margin: 5 }}>
                     {record.item}
                 </Text>
-                <Text style={{ margin: 20 }} >
+                <Text style={{ margin: 5 }}>
                     {record.person}
                 </Text>
-                <Text style={{ margin: 20 }} >
+                <Text style={{ margin: 5 }}>
                     {record.date}
                 </Text>
             </Card>
-        )
+        );
     }
-
     return <View />;
-
 };
-
-
 export default RenderRecord;
